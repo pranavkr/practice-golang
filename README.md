@@ -10,3 +10,7 @@ https://gobyexample.com/
 Installing GO:
 https://go.dev/doc/install
 
+Check if GO is installed on your machine:
+```
+go version
+```
