@@ -7,3 +7,6 @@ https://go.dev/learn/#tutorials
 
 https://gobyexample.com/
 
+Installing GO:
+https://go.dev/doc/install
+
