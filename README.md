@@ -24,4 +24,5 @@ In a module, you collect one or more related packages for a discrete and useful 
 
 <details>
 <summary>First step before running any go code (even if it is Hello World)</summary>
+1. Target code must belong to a module.
 </details>
