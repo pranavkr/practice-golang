@@ -32,5 +32,7 @@ In a module, you collect one or more related packages for a discrete and useful 
   ```
   go mod init module_path
   ```
-  
+  _**module_path:**_
+
+  If you publish a module, this must be a path from which your module can be downloaded by Go tools. That would be your code's repository.
 </details>
