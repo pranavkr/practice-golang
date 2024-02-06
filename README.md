@@ -36,3 +36,20 @@ In a module, you collect one or more related packages for a discrete and useful 
 
   If you publish a module, this must be a path from which your module can be downloaded by Go tools. That would be your code's repository.
 </details>
+
+<details>
+<summary>Package</summary>
+A package is a way to group functions, and it's made up of all the files in the same directory. for example: fmt is a package, which contains functions for formatting text, including printing to the console. This package is one of the standard library packages you got when you installed Go.
+
+Example:
+
+```
+package main // declaration of a package
+
+import "fmt" // Importing an external package
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```
+</details>
