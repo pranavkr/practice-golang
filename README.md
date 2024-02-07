@@ -53,3 +53,19 @@ func main() {
 }
 ```
 </details>
+
+<details>
+<summary>Writing and executing first go program</summary>
+
+Example:
+
+```
+package main // declaration of a package
+
+import "fmt" // Importing an external package
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```
+</details>
