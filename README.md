@@ -1,4 +1,4 @@
-# Pracice Go-Language and It's Concepts
+# Practice Go-Language and It's Concepts
 For Learning Go language
 
 Learning materials:
