@@ -90,3 +90,10 @@ go run hello.go
 Hello, World!
 ```
 </details>
+
+<details>
+
+<summary>Call code from other module</summary>
+
+
+</details>
