@@ -93,7 +93,7 @@ Hello, World!
 
 <details>
 
-<summary>Call code from other module</summary>
+<summary>Call code in the eternal package</summary>
 
 
 </details>
