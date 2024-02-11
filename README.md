@@ -94,6 +94,6 @@ Hello, World!
 <details>
 
 <summary>Call code in the eternal package</summary>
-
+How to create a package:
 
 </details>
