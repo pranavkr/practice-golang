@@ -93,7 +93,7 @@ Hello, World!
 
 <details>
 
-<summary>Call code in the eternal package</summary>
+<summary>Call code in the external package</summary>
 How to create a package:
 
 </details>
