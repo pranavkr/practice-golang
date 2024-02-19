@@ -94,6 +94,6 @@ Hello, World!
 <details>
 
 <summary>Call code in the external package</summary>
-To create a package, we just need to declare that package name as the first statement of the file.
+To create a package, we just need to declare the package name as the first statement of the file.
 
 </details>
