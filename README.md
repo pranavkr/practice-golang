@@ -100,4 +100,5 @@ To create a package, we just need to declare the package name as the first state
 ```
 package main // declaration of a package
 ```
+
 </details>
