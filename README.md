@@ -100,7 +100,44 @@ To create a package, we just need to declare the package name as the first state
 ```
 package main // declaration of a package
 ```
+To call a method from another package in Go, you need to follow a few steps:
 
+1. **Import the Package**: First, you need to import the package containing the method you want to call. You do this by including an import statement at the top of your Go source file.
+
+2. **Use the Method**: Once the package is imported, you can access the method by prefixing it with the package name.
+
+Here's a simple example to illustrate these steps:
+
+Suppose you have a package named `utils` with a method called `PrintMessage()` defined in a file named `utils.go`:
+
+```go
+// utils.go
+package utils
+
+import "fmt"
+
+func PrintMessage(message string) {
+    fmt.Println(message)
+}
+```
+
+Now, in another file, let's say `main.go`, you want to call the `PrintMessage()` method from the `utils` package:
+
+```go
+// main.go
+package main
+
+import "your-package-path/utils" // import the package
+
+func main() {
+    // Call the method from the utils package
+    utils.PrintMessage("Hello, World!")
+}
+```
+
+Make sure to replace `"your-package-path/utils"` with the correct import path to your `utils` package.
+
+By importing the `utils` package and prefixing the method with the package name (`utils.PrintMessage()`), you can call the `PrintMessage()` method from the `utils` package in your `main` function.
 </details>
 
 
