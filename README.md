@@ -102,3 +102,14 @@ package main // declaration of a package
 ```
 
 </details>
+
+
+<details>
+  <summary>Importance of main package in a go module</summary>
+  
+  - In Go, the main package holds the entry point to your application. When you build a Go program, you compile it into an executable binary. This binary must contain a package called "main" with a special function called "main()". This function serves as the entry point of your program, meaning it's the first function executed when you run your compiled program.
+  
+  - The main package is crucial because it defines where the execution of your program begins. Without it, the Go compiler wouldn't know where to start executing your code. It's the backbone of any executable Go program.
+  
+  - Additionally, when you're working with Go modules, the main package often serves as a reference point for module dependencies. Other packages within your module might depend on functionality provided by the main package, or they might be dependencies of the main package itself. This hierarchical structure helps organize and manage the dependencies of your Go project.
+</details>
