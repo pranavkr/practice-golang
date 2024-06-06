@@ -23,7 +23,7 @@ In a module, you collect one or more related packages for a discrete and useful 
 
 
 <details>
-<summary>First step before running any go code (even if it is Hello World)</summary>
+<summary>First step before running any go code (even if it is Hello World) - Create a Module</summary>
 1. Target code must belong to a module.
   To create a module you need to run the mod init command
   
@@ -35,6 +35,8 @@ In a module, you collect one or more related packages for a discrete and useful 
   _**module_path:**_
 
   If you publish a module, this must be a path from which your module can be downloaded by Go tools. That would be your code's repository.
+
+  * The go mod init command creates a go.mod file to track your code's dependencies.
 </details>
 
 <details>
