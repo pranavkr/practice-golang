@@ -213,3 +213,137 @@ By importing the `utils` package and prefixing the method with the package name 
     ```
     
 </details>
+
+<details>
+  <summary>Return and handle an error</summary>
+Sample Code for returnin gerror:
+  
+  ```
+    package greetings
+    
+    import (
+        "errors"
+        "fmt"
+    )
+    
+    // Hello returns a greeting for the named person.
+    func Hello(name string) (string, error) {
+        // If no name was given, return an error with a message.
+        if name == "" {
+            return "", errors.New("empty name")
+        }
+    
+        // If a name was received, return a value that embeds the name
+        // in a greeting message.
+        message := fmt.Sprintf("Hi, %v. Welcome!", name)
+        return message, nil
+    }
+  ```
+
+- Change the function so that it returns two values: a string and an error. Your caller will check the second value to see if an error occurred. (Any Go function can return multiple values.)
+- Import the Go standard library errors package so you can use its errors.New function.
+- Add an if statement to check for an invalid request (an empty string where the name should be) and return an error if the request is invalid. The errors.New function returns an error with your message inside.
+- Add nil (meaning no error) as a second value in the successful return. That way, the caller can see that the function succeeded.
+
+Sample code for handling Error:
+
+```
+  package main
+  
+  import (
+      "fmt"
+      "log"
+  
+      "example.com/greetings"
+  )
+  
+  func main() {
+      // Set properties of the predefined Logger, including
+      // the log entry prefix and a flag to disable printing
+      // the time, source file, and line number.
+      log.SetPrefix("greetings: ")
+      log.SetFlags(0)
+  
+      // Request a greeting message.
+      message, err := greetings.Hello("")
+      // If an error was returned, print it to the console and
+      // exit the program.
+      if err != nil {
+          log.Fatal(err)
+      }
+  
+      // If no error was returned, print the returned message
+      // to the console.
+      fmt.Println(message)
+  }
+```
+
+- Configure the log package to print the command name ("greetings: ") at the start of its log messages, without a time stamp or source file information.
+- Assign both of the Hello return values, including the error, to variables.
+- Change the Hello argument from Gladys’s name to an empty string, so you can try out your error-handling code.
+- Look for a non-nil error value. There's no sense continuing in this case.
+- Use the functions in the standard library's log package to output error information. If you get an error, you use the log package's Fatal function to print the error and stop the program.
+  
+</details>
+
+<details>
+  <summary>Writing Unit Tests</summary>
+  Go's built-in support for unit testing makes it easier to test as you go. Specifically, using naming conventions, Go's testing package, and the go test command, you can quickly write and execute tests.
+  
+  - Ending a file's name with _test.go tells the go test command that this file contains test functions. Better to create the test file parallel to the file for which you are writing unit tests.
+    Example: In the greetings directory, create a file called greetings_test.go. (with respect to the modules created in examples given earlier)
+  - Sample Unit Test:
+
+    ```
+      package greetings
+
+      import (
+          "testing"
+          "regexp"
+      )
+      
+      // TestHelloName calls greetings.Hello with a name, checking
+      // for a valid return value.
+      func TestHelloName(t *testing.T) {
+          name := "Gladys"
+          want := regexp.MustCompile(`\b`+name+`\b`)
+          msg, err := Hello("Gladys")
+          if !want.MatchString(msg) || err != nil {
+              t.Fatalf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
+          }
+      }
+      
+      // TestHelloEmpty calls greetings.Hello with an empty string,
+      // checking for an error.
+      func TestHelloEmpty(t *testing.T) {
+          msg, err := Hello("")
+          if msg != "" || err == nil {
+              t.Fatalf(`Hello("") = %q, %v, want "", error`, msg, err)
+          }
+      }
+    ```
+
+      - Implement **test functions in the same package as the code** you're testing.
+      - Create two test functions to test the greetings.Hello function. Test function names have the form Test**Name**, where **_Name_** says something about the specific test.
+      - Test functions take a pointer to the testing package's **testing.T** _type_ as a **parameter**. You use this _parameter's _methods for reporting and logging from your test.
+      - Implement two tests:
+        - TestHelloName calls the Hello function, passing a name value with which the function should be able to return a valid response message. If the call returns an error or an unexpected response message (one that doesn't include the name you passed in), you use the t parameter's Fatalf method to print a message to the console and end execution.
+        - TestHelloEmpty calls the Hello function with an empty string. This test is designed to confirm that your error handling works. If the call returns a non-empty string or no error, you use the t parameter's Fatalf method to print a message to the console and end execution.
+       
+    - At the command line in the greetings directory, run the ```go test``` command to execute the test. The go test command **executes test functions (whose names begin with Test) in test files (whose names end with _test.go)**. You can add the -v flag to get verbose output that lists all of the tests and their results.
+
+      ```
+      go test -v
+      ```
+  
+</details>
+
+
+<details>
+  <summary>Sample Point 1</summary>
+  
+</details>
+<details>
+  <summary>Sample Point 1</summary>
+  
+</details>
