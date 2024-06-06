@@ -152,3 +152,64 @@ By importing the `utils` package and prefixing the method with the package name 
   
   - Additionally, when you're working with Go modules, the main package often serves as a reference point for module dependencies. Other packages within your module might depend on functionality provided by the main package, or they might be dependencies of the main package itself. This hierarchical structure helps organize and manage the dependencies of your Go project.
 </details>
+
+
+<details>
+  <summary>Pointing your module to use other module dependencies from local machine</summary>
+  
+  - For production use, you’d publish the example.com/greetings module from its repository (with a module path that reflected its published location), where Go tools could find it to download it. For now, because you haven't published the module yet, you need to adapt the example.com/hello module so it can find the example.com/greetings code on your local file system.
+  - To do that, use the go mod edit command to edit the example.com/hello module to redirect Go tools from its module path (where the module isn't) to the local directory (where it is).
+
+  Example:
+      
+        ```
+        
+        <home>/
+         |-- greetings/
+         |-- hello/
+        
+        ```
+  
+  Consider above two as modules you have.
+    
+      ```
+  
+        go mod edit -replace example.com/greetings=../greetings
+        
+    ```
+  
+  * We are saying that instead of downloding the greetings module from any repository, pick it from greetings directory which is parallel to hello directory (we are editing the go.mod of hello module)
+  * The command specifies that example.com/greetings should be replaced with ../greetings for the purpose of locating the dependency. After you run the command, the go.mod file in the hello directory should include a replace directive as below:
+    ```
+    module example.com/hello
+
+    go 1.16
+    
+    replace example.com/greetings => ../greetings
+    ```
+
+- From the command prompt in the hello directory, run the go mod tidy command to synchronize the example.com/hello module's dependencies, adding those required by the code, but not yet tracked in the module.
+    ```
+    go mod tidy
+    ```
+
+  * After the command completes, the example.com/hello module's go.mod file should look like this:
+    ```
+    module example.com/hello
+
+    go 1.16
+    
+    replace example.com/greetings => ../greetings
+    
+    require example.com/greetings v0.0.0-00010101000000-000000000000
+
+     ```
+    * The command found the local code in the greetings directory, then added a require directive to specify that example.com/hello requires example.com/greetings. You created this dependency when you imported the greetings package in hello.go.
+    * The number following the module path is a pseudo-version number -- a generated number used in place of a semantic version number (which the module doesn't have yet).
+
+- To **reference a published module**, a go.mod file would typically omit the replace directive and use a require directive with a tagged version number at the end.
+    ```
+    require example.com/greetings v1.1.0
+    ```
+    
+</details>
