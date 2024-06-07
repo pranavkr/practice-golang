@@ -7,6 +7,9 @@ https://go.dev/learn/#tutorials
 
 https://gobyexample.com/
 
+https://go.dev/doc/effective_go
+
+
 Installing Go:
 https://go.dev/doc/install
 
@@ -383,6 +386,48 @@ Sample code for handling Error:
   map[Darrin:Hail, Darrin! Well met! Gladys:Great to see you, Gladys! Samantha:Hail, Samantha! Well met!]
   ```
 </details>
+
+<details>
+  <summary>Commentary</summary>
+
+  - Go provides C-style /* */ block comments and C++-style // line comments.
+  - Comments that appear before top-level declarations, with no intervening newlines, are considered to document the declaration itself. These “doc comments” are the primary documentation for a given Go package or command
+  
+</details>
+
+<details>
+  <summary>Names and Visibility outside the package</summary>
+
+  - Names are as important in Go as in any other language. They even have semantic effect: the visibility of a name outside a package is determined by whether its first character is upper case. It's therefore worth spending a little time talking about naming conventions in Go programs.
+  
+</details>
+
+<details>
+  <summary>Named result parameters</summary>
+
+  - The return or result "parameters" of a Go function can be given names and used as regular variables, just like the incoming parameters. When named, they are initialized to the zero values for their types when the function begins; if the function executes a return statement with no arguments, the current values of the result parameters are used as the returned values.
+
+  - The names are not mandatory but they can make code shorter and clearer: they're documentation. If we name the results of nextInt it becomes obvious which returned int is which.
+  ```
+  func nextInt(b []byte, pos int) (value, nextPos int) {}
+  ```
+  
+  Because named results are initialized and tied to an unadorned return, they can simplify as well as clarify. Here's a version of io.ReadFull that uses them well:
+
+  ```
+  func ReadFull(r Reader, buf []byte) (n int, err error) {
+      for len(buf) > 0 && err == nil {
+          var nr int
+          nr, err = r.Read(buf)
+          n += nr
+          buf = buf[nr:]
+      }
+      return
+  }
+  ```
+</details>
+
+
 
 
 <details>
