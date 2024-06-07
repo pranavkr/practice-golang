@@ -427,6 +427,76 @@ Sample code for handling Error:
   ```
 </details>
 
+<details>
+  <summary>Defer</summary>
+
+ - Go's defer statement schedules a function call (the deferred function) to be run immediately before the function executing the defer returns. It's an unusual but effective way to deal with situations such as resources that must be released regardless of which path a function takes to return. The canonical examples are unlocking a mutex or closing a file.
+ - Two Advantages:
+   - you will **never forget** to perform the action which you have have deferred.Example closing the file
+   - function call which has been deferred **sits close** to the code where it was decided that it has to be peformed. Example defer ```file.close()``` this bit of code will sit near to ```file.open()```
+ - The arguments to the deferred function (which include the receiver if the function is a method) are **evaluated when the defer executes**, not when the call executes. Besides avoiding worries about variables changing values as the function executes, this means that a **single deferred call site can defer multiple function executions**.
+ - Deferred functions are **executed in LIFO order**
+  
+</details>
+
+<details>
+  <summary>Data Allocation</summary>
+
+  Go has two allocation primitives, the built-in functions new and make. They do different things and apply to different types,
+  - Data Allocatoin with **new**
+    - It does **not initialize the memory**
+    - It only zeros it i.e. new(T) allocates zeroed storage for a new item of type T and returns its address , a value of type *T. In Go terminology, it **returns a pointer to a newly allocated zero value of type T**.
+    - zero value of each type can be used without further initialization.
+    - For example, the documentation for bytes.Buffer states that "the zero value for Buffer is an empty buffer ready to use."
+    - unlike in C, it's perfectly OK to return the address of a local variable; the storage associated with the variable survives after the function returns.
+    - **composite literls?**
+  - Allocation with **make**
+    - The built-in function make(T, args) serves a purpose different from new(T). It **creates slices, maps, and channels only**, and it **returns an initialized (not zeroed) value of type T (not *T)**.
+    - The reason for the distinction is that these three types represent, under the covers, references to data structures that must be initialized before use. **A slice, for example, is a three-item descriptor containing a pointer to the data (inside an array), the length, and the capacity, and until those items are initialized, the slice is nil**.
+    - For slices, maps, and channels, make initializes the internal data structure and prepares the value for use.
+    - Remember that make applies only to maps, slices and channels and does not return a pointer. To obtain an explicit pointer allocate with new or take the address of a variable explicitly.
+
+</details>
+
+
+<details>
+  <summary>Arrays</summary>
+
+  - Arrays are useful when planning the detailed layout of memory and sometimes can help avoid allocation, but primarily they are a building block for slices, the subject of the next section. To lay the foundation for that topic, here are a few words about arrays.
+
+  - There are major differences between the ways arrays work in Go and C. In Go,
+    - Arrays are values. Assigning one array to another copies all the elements.
+    - In particular, if you pass an array to a function, it will receive a copy of the array, not a pointer to it.
+    - The size of an array is part of its type. The types [10]int and [20]int are distinct.
+     
+</details>
+
+<details>
+  <summary>Slices</summary>
+  
+  - Slices wrap arrays to give a more general, powerful, and convenient interface to sequences of data. Except for items with explicit dimension such as transformation matrices, most array programming in Go is done with slices rather than simple arrays.
+  - Slices **hold references to an underlying array**, and if you assign one slice to another, both refer to the same array.
+  - If a function takes a slice argument, **changes it makes to the elements of the slice will be visible to the caller**, _analogous to passing a pointer to the underlying array_.
+  - A Read function can therefore accept a slice argument rather than a pointer and a count; **the length within the slice sets an upper limit of how much data to read**.
+  - Here is the signature of the Read method of the File type in package os:
+    ```
+    func (f *File) Read(buf []byte) (n int, err error)
+    ```
+    The method returns the number of bytes read and an error value, if any. To read into the first 32 bytes of a larger buffer buf, slice (here used as a verb) the buffer.
+    ```
+    n, err := f.Read(buf[0:32])
+    ```
+  - The length of a slice may be changed as long as it still fits within the limits of the underlying array; just assign it to a slice of itself.
+  - The capacity of a slice, accessible by the built-in function cap, reports the maximum length the slice may assume.
+  
+</details>
+
+<details>
+  <summary>Two-dimensional slices</summary>
+  
+</details>
+
+
 
 
 
