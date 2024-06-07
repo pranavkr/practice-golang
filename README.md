@@ -290,8 +290,8 @@ Sample code for handling Error:
   <summary>Writing Unit Tests</summary>
   Go's built-in support for unit testing makes it easier to test as you go. Specifically, using naming conventions, Go's testing package, and the go test command, you can quickly write and execute tests.
   
-  - Ending a file's name with _test.go tells the go test command that this file contains test functions. Better to create the test file parallel to the file for which you are writing unit tests.
-    Example: In the greetings directory, create a file called greetings_test.go. (with respect to the modules created in examples given earlier)
+  - Ending a file's name with **_test.go** tells the go test command that this file contains test functions. Better to create the test file parallel to the file for which you are writing unit tests.
+    Example: In the greetings directory, create a file called **greetings_test.go**. (with respect to the modules created in examples given earlier)
   - Sample Unit Test:
 
     ```
@@ -324,7 +324,7 @@ Sample code for handling Error:
     ```
 
       - Implement **test functions in the same package as the code** you're testing.
-      - Create two test functions to test the greetings.Hello function. Test function names have the form Test**Name**, where **_Name_** says something about the specific test.
+      - Create two test functions to test the greetings.Hello function. Test function names have the form _Test_**Name**, where **_Name_** says something about the specific test.
       - Test functions take a pointer to the testing package's **testing.T** _type_ as a **parameter**. You use this _parameter's _methods for reporting and logging from your test.
       - Implement two tests:
         - TestHelloName calls the Hello function, passing a name value with which the function should be able to return a valid response message. If the call returns an error or an unexpected response message (one that doesn't include the name you passed in), you use the t parameter's Fatalf method to print a message to the console and end execution.
@@ -338,12 +338,58 @@ Sample code for handling Error:
   
 </details>
 
+<details>
+  <summary>Compile and install the application</summary>
+  
+  - While the go run command is a useful shortcut for compiling and running a program when you're making frequent changes, it doesn't generate a binary executable.
+  - Two additional commands for building code:
+    - The **go build** command compiles the packages, along with their dependencies, but it doesn't install the results.
+    - The **go install** command compiles and installs the packages.
+  - From the command line in the hello directory, run the ```go build``` command **to compile the code into an executable**
+  - From the command line in the hello directory, run the new hello executable to confirm that the code works.
+    - On Linux or Mac: ```./hello```
+    - On Windows: ```hello.exe```
+  - You've compiled the application into an executable so you can run it. But to run it currently, your prompt needs either to be in the executable's directory, or to specify the executable's path. **How to install the application so that it can be run from anywhere**
+  - Discover the Go install path, where the go command will install the current package. You can discover the install path by running the go list command, as in the following example:
+
+    ```
+    $ go list -f '{{.Target}}'
+    ```
+      - For example, the command's output might say /home/gopher/bin/hello, meaning that binaries are installed to /home/gopher/bin. You'll need this install directory in the next step.
+  - Add the Go install directory to your system's shell path.
+    - On Linux or Mac: ```export PATH=$PATH:/path/to/your/install/directory```
+    - On Windows: ```set PATH=%PATH%;C:\path\to\your\install\directory```
+  - As an alternative, if you already have a directory like $HOME/bin in your shell path and you'd like to install your Go programs there, you can change the install target by setting the GOBIN variable using the go env command:
+    ```
+    #Mac or Linux
+    go env -w GOBIN=/path/to/your/bin
+    ```
+
+    or
+
+    ```
+    # Windows
+    go env -w GOBIN=C:\path\to\your\bin
+    ```
+
+  - Once you've updated the shell path, run the go install command to compile and install the package.
+    ```
+    go install
+    ```
+
+- Run your application by simply typing its name. To make this interesting, open a new command prompt and run the hello executable name in some other directory.
+  ```
+  $ hello
+  map[Darrin:Hail, Darrin! Well met! Gladys:Great to see you, Gladys! Samantha:Hail, Samantha! Well met!]
+  ```
+</details>
+
 
 <details>
-  <summary>Sample Point 1</summary>
+  <summary>Sample Topic  -------------------</summary>
   
 </details>
 <details>
-  <summary>Sample Point 1</summary>
+  <summary>Sample Topic  -------------------</summary>
   
 </details>
