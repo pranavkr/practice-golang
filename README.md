@@ -488,11 +488,24 @@ Sample code for handling Error:
     ```
   - The length of a slice may be changed as long as it still fits within the limits of the underlying array; just assign it to a slice of itself.
   - The capacity of a slice, accessible by the built-in function cap, reports the maximum length the slice may assume.
+
+    Example:
+    ```
+    make([]int, 10, 100) // it creates slice of type int, size 10 and capacity 100
+    make([]int, 10) // it creates slice of type int and size 10. capacity can be omitted.
+    ```
   
 </details>
 
 <details>
   <summary>Two-dimensional slices</summary>
+
+  - Go's arrays and slices are one-dimensional. To create the equivalent of a 2D array or slice, it is necessary to define an array-of-arrays or slice-of-slices, like this:
+    ```
+    type Transform [3][3]float64  // A 3x3 array, really an array of arrays.
+    type LinesOfText [][]byte     // A slice of byte slices.
+    ```
+  - 
   
 </details>
 
