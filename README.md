@@ -647,7 +647,43 @@ Sample code for handling Error:
 
 
 <details>
-  <summary>Sample Topic  -------------------</summary>
+  <summary>Switch</summary>
+
+  - Go's switch is more general than C's. The expressions need not be constants or even integers, the cases are evaluated top to bottom until a match is found, and if the switch has no expression it switches on true. It's therefore possible—and idiomatic—to write an if-else-if-else chain as a switch.
+    ```
+    func unhex(c byte) byte {
+        switch {
+        case '0' <= c && c <= '9':
+            return c - '0'
+        case 'a' <= c && c <= 'f':
+            return c - 'a' + 10
+        case 'A' <= c && c <= 'F':
+            return c - 'A' + 10
+        }
+        return 0
+    }
+    ```
+  - There is no automatic fall through, but cases can be presented in comma-separated lists.
+    ```
+    func shouldEscape(c byte) bool {
+        switch c {
+        case ' ', '?', '&', '=', '#', '+', '%':
+            return true
+        }
+        return false
+    }
+    ```
+  - **No need to add "break"**
+  - If the switch is in loop and you add break, it will come out of the loop // **Please experiment and then update this comment**
+  - Once a case match, it executes the case block and come out of the switch
+  - **Continue** keyword - Learn about how it can be used an what are the impacts
+  - Understand the below paragraph better and write in simple language with example:
+    - Although they are not nearly as common in Go as some other C-like languages, break statements can be used to terminate a switch early. Sometimes, though, it's necessary to break out of a surrounding loop, not the switch, and in Go that can be accomplished by putting a label on the loop and "breaking" to that label. This example shows both uses.
+    
+</details>
+
+<details>
+  <summary>Type switch</summary>
   
 </details>
 
