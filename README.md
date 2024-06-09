@@ -599,9 +599,57 @@ Sample code for handling Error:
 
 <details>
   <summary>Interfaces and other types</summary>
+
+  - Interfaces in Go provide a way to specify the behavior of an object: **if something can do this, then it can be used here**.
+  - In Go, a type **implements an interface by providing definitions for the methods listed in the interface**.
+  - There is **no explicit declaration or keyword to say a type implements an interface**. If a type has methods with the same names and signatures as those in an interface, it implicitly implements that interface.
+    - Define Interface:
+      ```
+      package main
+      
+      import "fmt"
+      
+      // Logger is an interface that requires a Log method
+      type Logger interface {
+          Log(message string)
+      }
+      ```
+
+    - Implementing the Interface
+      ```
+      // ConsoleLogger logs messages to the console
+      type ConsoleLogger struct{}
+      
+      // Implement the Log method for ConsoleLogger
+      func (cl ConsoleLogger) Log(message string) {
+          fmt.Println("Console Log:", message)
+      }
+      ```
+    - Using the Interface
+      ```
+      // Process simulates a process that logs messages
+      func Process(logger Logger) {
+          logger.Log("Process started")
+          // Simulate some work
+          logger.Log("Process completed")
+      }
+      
+      func main() {
+          consoleLogger := ConsoleLogger{}
+          
+          fmt.Println("Using ConsoleLogger:")
+          Process(consoleLogger)
+      }
+      ```
+  - **NOTE**: Functions that accept an interface type can operate on any value of any type that implements that interface, enabling polymorphism.
   
 </details>
 
+
+<details>
+  <summary>Sample Topic  -------------------</summary>
+  
+</details>
 
 
 
