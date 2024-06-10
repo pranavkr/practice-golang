@@ -684,7 +684,6 @@ Sample code for handling Error:
 
 <details>
   <summary>Type switch</summary>
-  
 </details>
 
 
