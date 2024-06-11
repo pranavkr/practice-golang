@@ -688,7 +688,6 @@ Sample code for handling Error:
 
 
 
-
 <details>
   <summary>Sample Topic  -------------------</summary>
   
